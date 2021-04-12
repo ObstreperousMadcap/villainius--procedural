@@ -26,7 +26,7 @@ villainius.exe - A benign application used to demonstrate an EDR detection.
                                with the official version of the embedded executable.
                                This must be the *final* option.
         Examples:
-		  villainius.exe -e mimikats -l createproc -m KEREROS::PTT <username>@krbtgt-<domainname.tld>.kirbi
+		  villainius.exe -e mimikats -l createproc -m KERBEROS::PTT <username>@krbtgt-<domainname.tld>.kirbi
 		  villainius.exe -p 15 -e mimikats -l hollowing -m SEKURLSA::LogonPasswords full
 		  villainius.exe -e procdump -l psenccmd -m -ma lsass.exe lsass.dmp
 		  villainius.exe -p 15 -e procdump -l psstartproc -m -ma lsass.exe lsass.dmp
