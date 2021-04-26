@@ -51,8 +51,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,0,0
- PRODUCTVERSION 1,0,0,0
+ FILEVERSION 1,1,0,0
+ PRODUCTVERSION 1,1,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -69,12 +69,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Michael Logan, ObstreperousMadcap@gmail.com"
             VALUE "FileDescription", "A benign application used to demonstrate an EDR detection."
-            VALUE "FileVersion", "1.0.0.0"
+            VALUE "FileVersion", "1.1.0.0"
             VALUE "InternalName", "mimikatz"
             VALUE "LegalCopyright", "Copyright (C) 2021 Michael Logan. This program is licensed under GNU GPLv3 and comes with ABSOLUTELY NO WARRANTY."
             VALUE "OriginalFilename", "mimikatz.exe"
             VALUE "ProductName", "mimikatz.exe"
-            VALUE "ProductVersion", "1.0.0.0"
+            VALUE "ProductVersion", "1.1.0.0"
         END
     END
     BLOCK "VarFileInfo"

@@ -31,45 +31,67 @@ std::int_fast32_t main(std::int_fast32_t argc, char* argv[])
 	{
 		evLaunchEXENotDefined,
 		evLaunchEXEmimikats,
+		evLaunchEXEnbtscan,
+		evLaunchEXEnmap,
+		evLaunchEXEpaexec,
 		evLaunchEXEprocdump,
+		evLaunchEXEpsexec,
 		evLaunchEXEwce
 	};
 	static std::map<std::string, launchEXEOption> s_mapLaunchEXEOption;
 	s_mapLaunchEXEOption["mimikats"] = launchEXEOption::evLaunchEXEmimikats;
+	s_mapLaunchEXEOption["nbtscan"] = launchEXEOption::evLaunchEXEnbtscan;
+	s_mapLaunchEXEOption["nmap"] = launchEXEOption::evLaunchEXEnmap;
+	s_mapLaunchEXEOption["paexec"] = launchEXEOption::evLaunchEXEpaexec;
 	s_mapLaunchEXEOption["procdump"] = launchEXEOption::evLaunchEXEprocdump;
+	s_mapLaunchEXEOption["psexec"] = launchEXEOption::evLaunchEXEpsexec;
 	s_mapLaunchEXEOption["wce"] = launchEXEOption::evLaunchEXEwce;
 
 	// Using map as flags for launch executable selected.
 	bool launchEXEAlreadySelected = false; // Only one executable allowed because methods are not the same for all.
 	std::map<launchEXEOption, bool> b_mapLaunchEXESelected;
  	b_mapLaunchEXESelected[launchEXEOption::evLaunchEXEmimikats] = false;
+	b_mapLaunchEXESelected[launchEXEOption::evLaunchEXEnbtscan] = false;
+	b_mapLaunchEXESelected[launchEXEOption::evLaunchEXEnmap] = false;
+	b_mapLaunchEXESelected[launchEXEOption::evLaunchEXEpaexec] = false;
 	b_mapLaunchEXESelected[launchEXEOption::evLaunchEXEprocdump] = false;
+	b_mapLaunchEXESelected[launchEXEOption::evLaunchEXEpsexec] = false;
 	b_mapLaunchEXESelected[launchEXEOption::evLaunchEXEwce] = false;
 
 	// Using map to connect launch executable option and filename.
 	std::string launchEXEFilename; // Used for launch to avoid another for() loop.
 	std::map<launchEXEOption, std::string> s_mapLaunchEXEFilename;
 	s_mapLaunchEXEFilename[launchEXEOption::evLaunchEXEmimikats] = "mimikats.exe";
+	s_mapLaunchEXEFilename[launchEXEOption::evLaunchEXEnbtscan] = "nbtscan.exe";
+	s_mapLaunchEXEFilename[launchEXEOption::evLaunchEXEnmap] = "nmap.exe";
+	s_mapLaunchEXEFilename[launchEXEOption::evLaunchEXEpaexec] = "paexec.exe";
 	s_mapLaunchEXEFilename[launchEXEOption::evLaunchEXEprocdump] = "procdump.exe";
+	s_mapLaunchEXEFilename[launchEXEOption::evLaunchEXEpsexec] = "psexec.exe";
 	s_mapLaunchEXEFilename[launchEXEOption::evLaunchEXEwce] = "wce.exe";
 
 	// Using map to connect launch executable option and resourceID.
 	std::map<launchEXEOption, int> i_mapLaunchEXEResourceID;
 	i_mapLaunchEXEResourceID[launchEXEOption::evLaunchEXEmimikats] = IDR_B64TEXTFILE2;
-	i_mapLaunchEXEResourceID[launchEXEOption::evLaunchEXEprocdump] = IDR_B64TEXTFILE3;
-	i_mapLaunchEXEResourceID[launchEXEOption::evLaunchEXEwce] = IDR_B64TEXTFILE4;
+	i_mapLaunchEXEResourceID[launchEXEOption::evLaunchEXEnbtscan] = IDR_B64TEXTFILE3;
+	i_mapLaunchEXEResourceID[launchEXEOption::evLaunchEXEnmap] = IDR_B64TEXTFILE4;
+	i_mapLaunchEXEResourceID[launchEXEOption::evLaunchEXEpaexec] = IDR_B64TEXTFILE5;
+	i_mapLaunchEXEResourceID[launchEXEOption::evLaunchEXEprocdump] = IDR_B64TEXTFILE6;
+	i_mapLaunchEXEResourceID[launchEXEOption::evLaunchEXEpsexec] = IDR_B64TEXTFILE7;
+	i_mapLaunchEXEResourceID[launchEXEOption::evLaunchEXEwce] = IDR_B64TEXTFILE8;
 
 	const std::string helpText =
 		"Usage:\n"
 		"  villainius.exe [options]\n\n"
-		"    Options:\n"
-		"      -h               Print this help."
-		"      -p <seconds>     (optional) Pause the embedded executable for\n"
-		"                       <seconds> before exiting.\n"
+		"    [options]\n"
+		"      -h               Print this help.\n"
 		"      -e <executable>  (required) Embedded executable to be launched:\n"
-		"                         mimikats      Benign version of Mimikatz\n"
-		"                         procdump      Benign version of ProcDump\n"
-		"                         wce           Benign version of WCE\n"
+		"                         mimikats      Benign version of mimikatz.\n"
+		"                         nbtscan       Benign version of nbtscan.\n"
+		"                         nmap          Benign version of nmap.\n"
+		"                         paexec        Benign version of paexec.\n"
+		"                         procdump      Benign version of procdump.\n"
+		"                         psexec        Benign version of psexec.\n"
+		"                         wce           Benign version of wce.\n"
 		"                       Note: Only one may be specified; extras are ignored.\n"
 		"      -l <method>      (required) Method used to launch embedded executable:\n"
 		"                         createproc    CreateProcess\n"
@@ -79,17 +101,18 @@ std::int_fast32_t main(std::int_fast32_t argc, char* argv[])
 		"                         shellex       ShellExecute\n"
 		"                         shellexa      ShellExecuteExA\n"
 		"                         stdsystem     std::system\n"
-		"                       Note: One or more; <modules> are used for all.\n"
-		"      -m <modules>     (optional) Module names, commands, or parameters used\n"
-		"                       with the official version of the embedded executable.\n"
-		"                       This must be the *final* option.\n\n"
+		"                       Note: One or more may be specified; The same\n"
+		"                         <parameters> are used for all launch methods.\n"
+		"      -p <parameters>  Parameters used with the official version of the\n"
+		"                         embedded executable. This must be the *final* option.\n\n"
 		"Examples:\n\n"
-		"  villainius.exe -e mimikats -l createproc -m KERBEROS::PTT <username>@krbtgt-<domainname.tld>.kirbi\n"
-		"  villainius.exe -p 15 -e mimikats -l hollowing -m SEKURLSA::LogonPasswords full\n"
-		"  villainius.exe -e procdump -l psenccmd -m -ma lsass.exe lsass.dmp\n"
-		"  villainius.exe -p 15 -e procdump -l psstartproc -m -ma lsass.exe lsass.dmp\n"
-		"  villainius.exe -e wce -l shellex -m -g <cleartextpassword>\n"
-		"  villainius.exe -p 15 -e wce -l shellexa -m -s <username>:<domain>:<lmhash>:<nthash>\n";
+		"  villainius.exe -e mimikats -l createproc -p SEKURLSA::LogonPasswords full\n"
+		"  villainius.exe -e nbtscan -l hollowing -p -vh <ipnetwork>/<maskbits>\n"
+		"  villainius.exe -e nmap -l psenccmd -p <ipnetwork>/<maskbits> --spoof-mac 0\n"
+		"  villainius.exe -e paexec -l psstartproc -p \\\\<ipaddress> --spoof-mac 0 <filename.exe>\n"
+		"  villainius.exe -e procdump -l shellex -p -ma <filename.exe> <filename.dmp>\n"
+		"  villainius.exe -e psexec -l shellexa -p \\\\<ipaddress> <command> -ab\n"
+		"  villainius.exe -e wce -l stdsystem -p -s <username>:<domain>:<lmhash>:<nthash>\n";
 	// ****************************************************************************
 	// End: Using these variables turns the rest of the app into a template.
 	// ****************************************************************************
@@ -101,17 +124,15 @@ std::int_fast32_t main(std::int_fast32_t argc, char* argv[])
 	{
 		evArgumentNotDefined,
 		evArgumentHelp,
-		evArgumentPause,
 		evArgumentExecutable,
 		evArgumentLaunch,
-		evArgumentModules
+		evArgumentParameters
 	};
 	static std::map<std::string, argumentValue> s_mapArguments;
 	s_mapArguments["-h"] = argumentValue::evArgumentHelp;
-	s_mapArguments["-p"] = argumentValue::evArgumentPause;
 	s_mapArguments["-e"] = argumentValue::evArgumentExecutable;
 	s_mapArguments["-l"] = argumentValue::evArgumentLaunch;
-	s_mapArguments["-m"] = argumentValue::evArgumentModules;
+	s_mapArguments["-p"] = argumentValue::evArgumentParameters;
 
 	// Using enum and map to enable the use of a switch for launch methods.
 	enum class launchMethod
@@ -173,16 +194,7 @@ std::int_fast32_t main(std::int_fast32_t argc, char* argv[])
 			}
 			std::cout << helpText;
 			return EXIT_SUCCESS;
- 
-		case argumentValue::evArgumentPause:
-			launchEXEArguments += *argument + " "; // -p, --pause option.
-			if (++argument != arguments.end())
-			{
-				pauseSeconds = *argument;
-				launchEXEArguments += pauseSeconds + " "; // <seconds> value.
-			}
-			break;
-
+ 		
 		case argumentValue::evArgumentExecutable:
 			if (++argument != arguments.end())
 			{
@@ -239,7 +251,7 @@ std::int_fast32_t main(std::int_fast32_t argc, char* argv[])
 			}
 			break;
 
-		case argumentValue::evArgumentModules:
+		case argumentValue::evArgumentParameters:
 			launchEXEArguments += lowercaseArgument + " ";
 			++argument;
 			for (std::vector<std::string>::iterator module = argument; module != arguments.end(); ++module)

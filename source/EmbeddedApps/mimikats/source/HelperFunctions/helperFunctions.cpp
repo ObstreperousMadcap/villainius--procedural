@@ -173,7 +173,6 @@ std::int_fast32_t displayFileInfo()
 	}
 
 	// "040904e4" is the language ID shown in the VS_VERSION_INFO "BlockHeader" field. 
-	std::cout << std::endl;
 	std::cout << "Product Name: " << ((VerQueryValue(&data[0], std::string("\\StringFileInfo\\040904b0\\ProductName").c_str(), &pvProductName, &iProductNameLen)) ? (LPCSTR)pvProductName : "~NONE~") << std::endl;
 	fileDescription = ((VerQueryValue(&data[0], std::string("\\StringFileInfo\\040904b0\\FileDescription").c_str(), &pvFileDescription, &iFileDescriptionLen)) ? (LPCSTR)pvFileDescription : "~NONE~");
 	std::cout << "File Description: " << splitStringIntoSegments(fileDescription, maxSegmentLength, fileDescriptionHeaderLength) << std::endl;
@@ -210,7 +209,7 @@ std::int_fast32_t errorHandler(const std::string& operationName)
 std::int_fast32_t extractFileResource(const std::string& callingEXEName, const int& resourceIdentifier, const std::string& resourceType, const std::string& fileName, const bool& isBase64Encoded)
 {
 	// Retrieve Base64-encoded file.
-	std::cout << callingEXEName << ": extractFileResource is retrieving " << fileName << " from resources." << std::endl;
+	std::cout << callingEXEName << ": Retrieving " << fileName << " from resources." << std::endl;
 
 	// Variables to extract and hold the content.
 	HMODULE moduleHandle;
@@ -226,7 +225,7 @@ std::int_fast32_t extractFileResource(const std::string& callingEXEName, const i
 	resourceHandle = FindResource(moduleHandle, MAKEINTRESOURCE(resourceIdentifier), (LPCSTR)resourceType.c_str());
 	if (resourceHandle == nullptr)
 	{
-		std::cerr << callingEXEName << ": extractFileResource is unable to obtain resourceHandle." << std::endl;
+		std::cerr << callingEXEName << ": Unable to obtain resourceHandle." << std::endl;
 		return EXIT_FAILURE;
 	}
 	else
@@ -234,7 +233,7 @@ std::int_fast32_t extractFileResource(const std::string& callingEXEName, const i
 		dataHandle = LoadResource(nullptr, resourceHandle);
 		if (dataHandle == nullptr)
 		{
-			std::cerr << callingEXEName << ": extractFileResource is unable to obtain dataHandle." << std::endl;
+			std::cerr << callingEXEName << ": Unable to obtain dataHandle." << std::endl;
 			return EXIT_FAILURE;
 		}
 		else
@@ -242,7 +241,7 @@ std::int_fast32_t extractFileResource(const std::string& callingEXEName, const i
 			resourceSize = SizeofResource(nullptr, resourceHandle);
 			if (resourceSize == 0)
 			{
-				std::cerr << callingEXEName << ": extractFileResource is unable to obtain resourceSize." << std::endl;
+				std::cerr << callingEXEName << ": Unable to obtain resourceSize." << std::endl;
 				return EXIT_FAILURE;
 			}
 			else
@@ -250,7 +249,7 @@ std::int_fast32_t extractFileResource(const std::string& callingEXEName, const i
 				firstByte = reinterpret_cast<const char*>(LockResource(dataHandle));
 				if (firstByte == nullptr)
 				{
-					std::cerr << callingEXEName << ": extractFileResource is unable to obtain firstByte." << std::endl;
+					std::cerr << callingEXEName << ": Unable to obtain firstByte." << std::endl;
 					return EXIT_FAILURE;
 				}
 				else
@@ -265,21 +264,21 @@ std::int_fast32_t extractFileResource(const std::string& callingEXEName, const i
 	// Decode the resource if necessary.
 	if (isBase64Encoded)
 	{
-		std::cout << callingEXEName << ": extractFileResource is decoding " << fileName << "." << std::endl;
+		std::cout << callingEXEName << ": Decoding " << fileName << "." << std::endl;
 		if (base64Decode(callingEXEName, extractedResourceFile, decodedResourceFile) == EXIT_FAILURE)
 		{
-			std::cerr << callingEXEName << ": extractFileResource failed to decode " << fileName << "." << std::endl;
+			std::cerr << callingEXEName << ": Failed to decode " << fileName << "." << std::endl;
 			return EXIT_FAILURE;
 		}
 	}
 
 	// Save the resource to the named file. 
 	std::ofstream outputFile;
-	std::cout << callingEXEName << ": extractFileResource is saving decoded " << fileName << " to file." << std::endl;
+	std::cout << callingEXEName << ": Saving decoded " << fileName << " to file." << std::endl;
 	outputFile.open(fileName, std::ios::out | std::ios::binary | std::ios::trunc);
 	if (!outputFile.is_open())
 	{
-		std::cerr << callingEXEName << ": extractFileResource failed to create " << fileName << " file. " << std::endl;
+		std::cerr << callingEXEName << ": Failed to create " << fileName << " file. " << std::endl;
 		return EXIT_FAILURE;
 	}
 
@@ -295,7 +294,7 @@ std::int_fast32_t extractFileResource(const std::string& callingEXEName, const i
 	
 	if (outputFile.bad())
 	{
-		std::cerr << callingEXEName << ": extractFileResource failed to write " << fileName << " to file." << std::endl;
+		std::cerr << callingEXEName << ": Failed to write " << fileName << " to file." << std::endl;
 		return EXIT_FAILURE;
 	}
 	else

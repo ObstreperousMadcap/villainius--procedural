@@ -166,7 +166,11 @@
   <ItemGroup>
     <Text Include="EmbeddedApps\lsass\encoded\lsass.txt" />
     <Text Include="EmbeddedApps\mimikats\encoded\mimikats.txt" />
+    <Text Include="EmbeddedApps\nbtscan\encoded\nbtscan.txt" />
+    <Text Include="EmbeddedApps\nmap\encoded\nmap.txt" />
+    <Text Include="EmbeddedApps\paexec\encoded\paexec.txt" />
     <Text Include="EmbeddedApps\procdump\encoded\procdump.txt" />
+    <Text Include="EmbeddedApps\psexec\encoded\psexec.txt" />
     <Text Include="EmbeddedApps\wce\encoded\wce.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

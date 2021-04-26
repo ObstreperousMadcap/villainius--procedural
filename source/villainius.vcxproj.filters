@@ -51,5 +51,17 @@
     <Text Include="EmbeddedApps\wce\encoded\wce.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="EmbeddedApps\nbtscan\encoded\nbtscan.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="EmbeddedApps\psexec\encoded\psexec.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="EmbeddedApps\paexec\encoded\paexec.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="EmbeddedApps\nmap\encoded\nmap.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

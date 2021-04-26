@@ -21,7 +21,7 @@ along with this program. If not, see https://www.gnu.org/licenses/.
 
 std::int_fast32_t main(std::int_fast32_t argc, char* argv[])
 {
-	const std::string nameOfThisApp = std::filesystem::path(argv[0]).filename().string(); // Used for prompts and parameters.
+	const std::string nameOfThisApp = std::filesystem::path(argv[0]).filename().string(); // Used for prompts.
 
 	std::cout << nameOfThisApp << " : Starting." << std::endl;
 	if (displayFileInfo() == EXIT_FAILURE)
@@ -30,7 +30,7 @@ std::int_fast32_t main(std::int_fast32_t argc, char* argv[])
 		return EXIT_FAILURE;
 	}
 
-	std::int_fast32_t pauseSeconds = 60;
+	std::int_fast32_t pauseSeconds = 15;
 	while (pauseSeconds > 0)
 	{
 		std::cout << nameOfThisApp << " : Pausing for " + std::to_string(pauseSeconds) + " second(s) before exiting." << std::endl;

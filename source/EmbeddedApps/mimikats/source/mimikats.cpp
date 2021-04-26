@@ -21,54 +21,49 @@ along with this program. If not, see https://www.gnu.org/licenses/.
 
 std::int_fast32_t main(std::int_fast32_t argc, char* argv[])
 {
-	const std::string nameOfThisApp = std::filesystem::path(argv[0]).filename().string(); // Used for prompts and parameters.
+	const std::string nameOfThisApp = std::filesystem::path(argv[0]).filename().string(); // Used for prompts.
 
 	// ****************************************************************************
 	// Start: Using this variable turns the rest of the app into a template.
 	// ****************************************************************************
 
 	const std::string helpText =
-		"Usage:\n"
-		"  mimikats.exe [options] <modules>\n\n"
-		"      -h            Print this help.\n"
-		"      -p <seconds>  Pause mimikats.exe for <seconds> before exiting.\n"
-		"      -m <modules>  Module names, commands, and parameters used with the\n"
-		"                    official mimikats.exe. This must be the *final* option.\n"
+		"Usage:\n\n"
+		"  mimikats.exe [options] <parameters>\n\n"
+		"    [options]\n"
+		"      -h  Print this help.\n\n"
+		"    <parameters>\n"
+		"      Parameters used with the official mimikatz.\n\n"
 		"Examples:\n\n"
-		"  mimikats.exe -p 15 -m KEREROS::PTT <username>@krbtgt-<domainname.tld>.kirbi\n"
-		"  mimikats.exe -p 15 -m LSADUMP::DCSync /user:<domainname>\\krbtgt /domain:<domainname.tld>\n"
-		"  mimikats.exe -p 15 -m SEKURLSA::LogonPasswords full\n"
-		"  mimikats.exe -p 15 -m SEKURLSA::PTH /user:<username> /domain:<domainname> /ntlm:<hash> /run:<command>\n";
+		"  mimikats.exe KEREROS::PTT <username>@krbtgt-<domainname.tld>.kirbi\n"
+		"  mimikats.exe LSADUMP::DCSync /user:<domainname>\\krbtgt /domain:<domainname.tld>\n"
+		"  mimikats.exe SEKURLSA::LogonPasswords full\n"
+		"  mimikats.exe SEKURLSA::PTH /user:<username> /domain:<domainname> /ntlm:<hash> /run:<command>\n\n";
 
 	// ****************************************************************************
 	// End: Using this variable turns the rest of the app into a template.
 	// ****************************************************************************
 
-	std::cout << nameOfThisApp << ": Starting." << std::endl;
+	std::cout << nameOfThisApp << ": Starting." << std::endl << std::endl;
 
-	// Using enum and map to enable the use of a switch for arguments.
+	// Extensibilty choice - Using enum and map to enable the use of a switch for arguments. 
 	enum argumentValue
 	{
 		evArgumentNotDefined,
 		evArgumentHelp,
-		evArgumentPause,
-		evArgumentModules
 	};
 	static std::map<std::string, argumentValue> s_mapArguments;
 	s_mapArguments["-h"] = evArgumentHelp;
-	s_mapArguments["-p"] = evArgumentPause;
-	s_mapArguments["-m"] = evArgumentModules;
 
 	// Capture the arguments.
 	std::vector<std::string> arguments(argv + 1, argv + argc); // Starting with argv + 1 excludes the executable.
-	std::int_fast32_t pauseSeconds = 0; // In case there is a -p, --pause option.
 
-	// No options or modules provided; force display of help.
+	// No options or parameters provided; force display of help.
 	if (arguments.size() == 0) { arguments.push_back("-h"); }
 
 	// Examine arguments.
 	std::string lowercaseArgument;
-	std::string modulesArguments = "None."; // Everything past the -m.
+	std::string parameters = " ";
 	for (std::vector<std::string>::iterator argument = arguments.begin(); argument != arguments.end(); ++argument)
 	{
 		// Convert to lowercase to use s_map in switch.
@@ -80,36 +75,28 @@ std::int_fast32_t main(std::int_fast32_t argc, char* argv[])
 			if (displayFileInfo() == EXIT_FAILURE)
 			{
 				std::cerr << nameOfThisApp << ": Unable to retrieve product information." << std::endl;
-				return EXIT_FAILURE;
 			}
 			std::cout << helpText;
+			std::cout << nameOfThisApp << ": Exiting." << std::endl;
 			return EXIT_SUCCESS;
 
-		case evArgumentPause:
-			pauseSeconds = std::stoi(*(++argument) + " "); // Value. 
-			break;
-
-		case evArgumentModules:
-			++argument;
-			modulesArguments.clear();
-			for (std::vector<std::string>::iterator module = argument; module != arguments.end(); ++module)
-			{
-				modulesArguments += *module + " ";
-			}
+		default: // Everything else is treated as a parameter.
+			parameters += *argument + " ";
 			break;
 		}
 	}
+	
+	std::cout << nameOfThisApp << ": Parameter(s) {" << ((parameters.length() > 0) ? parameters : " None ") << "}" << std::endl;
 
-	modulesArguments.pop_back(); // Remove trailing space.
-	std::cout << nameOfThisApp << ": Module(s) { " << modulesArguments << " }" << std::endl;
-
+	std::int_fast32_t pauseSeconds = 15;
 	while (pauseSeconds > 0)
 	{
-		std::cout << nameOfThisApp << ": Pausing for " + std::to_string(pauseSeconds) + " second(s) before exiting." << std::endl;
+		std::cout << nameOfThisApp << " : Pausing for " + std::to_string(pauseSeconds) + " second(s) before exiting." << std::endl;
 		std::this_thread::sleep_for(std::chrono::seconds(5));
 		pauseSeconds -= 5;
 	}
 
 	std::cout << nameOfThisApp << ": Exiting." << std::endl;
+
 	return EXIT_SUCCESS;
 }

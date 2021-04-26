@@ -51,8 +51,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,0,0
- PRODUCTVERSION 1,0,0,0
+ FILEVERSION 1,1,0,0
+ PRODUCTVERSION 1,1,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -69,12 +69,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Michael Logan, ObstreperousMadcap@gmail.com"
             VALUE "FileDescription", "A benign application used to demonstrate an EDR detection."
-            VALUE "FileVersion", "1.0.0.0"
+            VALUE "FileVersion", "1.1.0.0"
             VALUE "InternalName", "villainius"
             VALUE "LegalCopyright", "Copyright (C) 2021 Michael Logan. This program is licensed under GNU GPLv3 and comes with ABSOLUTELY NO WARRANTY."
             VALUE "OriginalFilename", "villainius.exe"
             VALUE "ProductName", "villainius.exe"
-            VALUE "ProductVersion", "1.0.0.0"
+            VALUE "ProductVersion", "1.1.0.0"
         END
     END
     BLOCK "VarFileInfo"
@@ -93,9 +93,17 @@ IDR_B64TEXTFILE1        B64TEXTFILE             "EmbeddedApps\\lsass\\encoded\\l
 
 IDR_B64TEXTFILE2        B64TEXTFILE             "EmbeddedApps\\mimikats\\encoded\\mimikats.txt"
 
-IDR_B64TEXTFILE3        B64TEXTFILE             "EmbeddedApps\\procdump\\encoded\\procdump.txt"
+IDR_B64TEXTFILE3        B64TEXTFILE             "EmbeddedApps\\nbtscan\\encoded\\nbtscan.txt"
 
-IDR_B64TEXTFILE4        B64TEXTFILE             "EmbeddedApps\\wce\\encoded\\wce.txt"
+IDR_B64TEXTFILE4        B64TEXTFILE             "EmbeddedApps\\nmap\\encoded\\nmap.txt"
+
+IDR_B64TEXTFILE5        B64TEXTFILE             "EmbeddedApps\\paexec\\encoded\\paexec.txt"
+
+IDR_B64TEXTFILE6        B64TEXTFILE             "EmbeddedApps\\procdump\\encoded\\procdump.txt"
+
+IDR_B64TEXTFILE7        B64TEXTFILE             "EmbeddedApps\\psexec\\encoded\\psexec.txt"
+
+IDR_B64TEXTFILE8        B64TEXTFILE             "EmbeddedApps\\wce\\encoded\\wce.txt"
 
 #endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////
