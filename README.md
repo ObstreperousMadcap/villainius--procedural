@@ -4,7 +4,7 @@ villainius.exe - A benign application used to demonstrate an EDR detection.
 
     Usage:
         villainius.exe [options]
-	    [options]
+            [options]
                 -h              Print this help.
                 -e <executable> (required) Embedded executable to be launched:
                                   mimikats  Benign version of mimikatz
