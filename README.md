@@ -2,39 +2,40 @@
 
 villainius.exe - A benign application used to demonstrate an EDR detection.
 
-        Usage:
-	    villainius.exe [options]
-		  [options]
-			-h		Print this help.
-			-e <executable>	(required) Embedded executable to be launched:
-					  mimikats	Benign version of mimikatz
-					  nbtscan	Benign version of nbtscan
-					  nmap		Benign version of nmap
-					  paexec	Benign version of paexec
-					  procdump	Benign version of procdump
-					  psexec	Benign version of psexec
-					  wce		Benign version of wce
-					  Note: Only one may be specified; extras are ignored.
-			-l <method>	(required) Method used to launch embedded executable:
-					  createproc	CreateProcess
-					  hollowing	Process hollowing of embedded lsass.exe
-					  psenccmd	PowerShell -EncodedCommand
-					  psstartproc	PowerShell Start-Process
-					  shellex	ShellExecute
-					  shellexa	ShellExecuteExA
-					  stdsystem	std::system
-					  Note: One or more may be specified; The same
-					  <parameters> are used for all launch methods.
-			-p <parameters> Parameters used with the official version of the
-					embedded executable. This must be the *final* option.
-	Examples:
-		villainius.exe -e mimikats -l createproc -p SEKURLSA::LogonPasswords full
-		villainius.exe -e nbtscan -l hollowing -p -vh <ipnetwork>/<maskbits>
-		villainius.exe -e nmap -l psenccmd -p <ipnetwork>/<maskbits> --spoof-mac 0
-		villainius.exe -e paexec -l psstartproc -p \\\\<ipaddress> --spoof-mac 0 <filename.exe>
-		villainius.exe -e procdump -l shellex -p -ma <filename.exe> <filename.dmp>
-		villainius.exe -e psexec -l shellexa -p \\\\<ipaddress> <command> -ab
-		villainius.exe -e wce -l stdsystem -p -s <username>:<domain>:<lmhash>:<nthash>		
+    Usage:
+        villainius.exe [options]
+	    [options]
+                -h              Print this help.
+                -e <executable>	(required) Embedded executable to be launched:
+                                  mimikats	Benign version of mimikatz
+                                  nbtscan	Benign version of nbtscan
+                                  nmap		Benign version of nmap
+                                  paexec	Benign version of paexec
+                                  procdump	Benign version of procdump
+                                  psexec	Benign version of psexec
+                                  wce		Benign version of wce
+                                  Note: Only one may be specified; extras are ignored.
+                -l <method>     (required) Method used to launch embedded executable:
+                                  createproc	CreateProcess
+                                  hollowing	Process hollowing of embedded lsass.exe
+                                  psenccmd	PowerShell -EncodedCommand
+                                  psstartproc	PowerShell Start-Process
+                                  shellex	ShellExecute
+                                  shellexa	ShellExecuteExA
+                                  stdsystem	std::system
+                                  Note: One or more may be specified; The same
+                                  <parameters> are used for all launch methods.
+                -p <parameters> Parameters used with the official version of the
+                                  embedded executable. This must be the *final* option.
+
+    Examples:
+        villainius.exe -e mimikats -l createproc -p SEKURLSA::LogonPasswords full
+        villainius.exe -e nbtscan -l hollowing -p -vh <ipnetwork>/<maskbits>
+        villainius.exe -e nmap -l psenccmd -p <ipnetwork>/<maskbits> --spoof-mac 0
+        villainius.exe -e paexec -l psstartproc -p \\\\<ipaddress> --spoof-mac 0 <filename.exe>
+        villainius.exe -e procdump -l shellex -p -ma <filename.exe> <filename.dmp>
+        villainius.exe -e psexec -l shellexa -p \\\\<ipaddress> <command> -ab
+        villainius.exe -e wce -l stdsystem -p -s <username>:<domain>:<lmhash>:<nthash>		
 
 Villianius performs the following tasks:
 1. Extracts from its resources, decodes, and saves to disk several Base64-encoded benign applications that are named after applications that could be used for malicious purposes.
