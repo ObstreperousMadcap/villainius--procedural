@@ -32,9 +32,9 @@ villainius.exe - A benign application used to demonstrate an EDR detection.
         villainius.exe -e mimikats -l createproc -p SEKURLSA::LogonPasswords full
         villainius.exe -e nbtscan -l hollowing -p -vh <ipnetwork>/<maskbits>
         villainius.exe -e nmap -l psenccmd -p <ipnetwork>/<maskbits> --spoof-mac 0
-        villainius.exe -e paexec -l psstartproc -p \\\\<ipaddress> --spoof-mac 0 <filename.exe>
+        villainius.exe -e paexec -l psstartproc -p \\<ipaddress> --spoof-mac 0 <filename.exe>
         villainius.exe -e procdump -l shellex -p -ma <filename.exe> <filename.dmp>
-        villainius.exe -e psexec -l shellexa -p \\\\<ipaddress> <command> -ab
+        villainius.exe -e psexec -l shellexa -p \\<ipaddress> <command> -ab
         villainius.exe -e wce -l stdsystem -p -s <username>:<domain>:<lmhash>:<nthash>		
 
 Villianius performs the following tasks:
