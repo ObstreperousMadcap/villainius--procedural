@@ -208,8 +208,24 @@ std::int_fast32_t main(std::int_fast32_t argc, char* argv[])
 						b_mapLaunchEXESelected[launchEXEOption::evLaunchEXEmimikats] = true;
 						break;
 
+					case launchEXEOption::evLaunchEXEnbtscan:
+						b_mapLaunchEXESelected[launchEXEOption::evLaunchEXEnbtscan] = true;
+						break;
+
+					case launchEXEOption::evLaunchEXEnmap:
+						b_mapLaunchEXESelected[launchEXEOption::evLaunchEXEnmap] = true;
+						break;
+
+					case launchEXEOption::evLaunchEXEpaexec:
+						b_mapLaunchEXESelected[launchEXEOption::evLaunchEXEpaexec] = true;
+						break;
+
 					case launchEXEOption::evLaunchEXEprocdump:
 						b_mapLaunchEXESelected[launchEXEOption::evLaunchEXEprocdump] = true;
+						break;
+
+					case launchEXEOption::evLaunchEXEpsexec:
+						b_mapLaunchEXESelected[launchEXEOption::evLaunchEXEpsexec] = true;
 						break;
 
 					case launchEXEOption::evLaunchEXEwce:
