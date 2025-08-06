@@ -57,7 +57,7 @@ Windows SDK: 10.0.19041.0
 1. nbtscan, nmap, paexec, and psexec may need a bit more code added to ensure detection; additional testing needed.
 2. Additional process injection methods need to be added.
 
-## mimikats Parameters
+## mimikatz Parameters
 
 Below are some of the parameters that have been - and may be still - used with mimikatz:
 
